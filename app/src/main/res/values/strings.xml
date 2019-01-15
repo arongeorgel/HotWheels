@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">HotWheels</string>
+    <string name="generic_error_message">Ups… something went wrong</string>
+    <string name="vehicle_registration_country">Registered in %s %s</string>
+    <string name="vehicle_details_registration_country_label">Registration country</string>
+    <string name="vehicle_details_registration_number_label">Registration number</string>
+    <string name="vehicle_details_type_label">Vehicle type</string>
+    <string name="vehicle_details_color_label">Vehicle color</string>
+</resources>
