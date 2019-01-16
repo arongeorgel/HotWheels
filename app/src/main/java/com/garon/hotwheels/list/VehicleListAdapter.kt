@@ -80,7 +80,8 @@ class VehicleListAdapter constructor(
         }
     }
 
-    fun updateData(vehicles: List<VehicleViewModel>) {
+    fun updateData(vehicles: List<VehicleViewModel>, isRefreshed: Boolean) {
+        if(isRefreshed) list.clear()
         list.addAll(vehicles)
         notifyDataSetChanged()
     }

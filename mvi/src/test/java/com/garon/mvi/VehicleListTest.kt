@@ -122,6 +122,38 @@ class VehicleListTest {
     }
 
     @Test
+    fun `when initial intent and swipe-to-refresh next intent trigger, retrieve successfully the vehicle list`() {
+        whenever(vehicleApi.getVehicleList()).thenReturn(
+            Observable.just(Response.success(successResponse1)),
+            Observable.just(Response.success(successResponse1))
+        )
+
+        val subscriber = vehiclesPresenter.states().test()
+        vehiclesPresenter.processIntents(
+            Observable.merge(
+                Observable.just(VehiclesIntent.InitialIntent),
+                Observable.just(VehiclesIntent.RefreshIntent)
+            )
+        )
+
+        subscriber.run {
+            assertNoErrors()
+            assertComplete()
+            assertValueCount(5)
+            assertValueAt(1) { it.isLoading && !it.isError && it.list.isEmpty() }
+            assertValueAt(2) { it.list.isNotEmpty() && !it.isLoading && !it.isError }
+            assertValueAt(3) { it.isLoading && it.list.isNotEmpty() && !it.isError }
+            assertValueAt(4) { it.list.isNotEmpty() && !it.isLoading && !it.isError }
+
+            val firstPage = values()[2]
+            val secondPage = values()[4]
+            assert(firstPage.list[0].registrationNumber == secondPage.list[0].registrationNumber)
+            assert(!firstPage.isRefreshed)
+            assert(secondPage.isRefreshed)
+        }
+    }
+
+    @Test
     fun `when initial intent trigger, simulate api fail`() {
         whenever(vehicleApi.getVehicleList()).thenReturn(
             Observable.just(

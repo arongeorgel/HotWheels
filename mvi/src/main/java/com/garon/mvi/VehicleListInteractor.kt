@@ -47,7 +47,7 @@ class VehicleListInteractor @Inject constructor(
                         )
                     }
 
-                    VehiclesResult.Success(list = vehicleList)
+                    VehiclesResult.Success(list = vehicleList, isRefreshed = it is VehiclesAction.RefreshAction)
                 }
 
             val error = api.filter { apiResult -> apiResult is VehicleApiError }

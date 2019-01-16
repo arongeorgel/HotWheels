@@ -101,7 +101,7 @@ class VehicleListFragment : Fragment() {
             errorIcon.visibility = View.GONE
             errorMessage.visibility = View.GONE
 
-            adapter.updateData(state.list)
+            adapter.updateData(state.list, state.isRefreshed)
         }
     }
 }

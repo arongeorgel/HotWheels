@@ -28,7 +28,8 @@ sealed class VehiclesResult {
     object InProgress : VehiclesResult()
 
     data class Success(
-        val list: List<VehicleViewModel>
+        val list: List<VehicleViewModel>,
+        val isRefreshed: Boolean
     ) : VehiclesResult()
 
     object LastResult : VehiclesResult()
@@ -38,6 +39,7 @@ sealed class VehiclesResult {
 
 data class VehiclesState(
     val isLoading: Boolean = false,
+    val isRefreshed: Boolean = true,
     val list: List<VehicleViewModel> = emptyList(),
     val isError: Boolean = false
 ) {

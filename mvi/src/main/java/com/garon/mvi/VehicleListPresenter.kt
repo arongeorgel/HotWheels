@@ -31,7 +31,8 @@ class VehicleListPresenter @Inject constructor(
                 is VehiclesResult.Success -> prevState.copy(
                     isLoading = false,
                     isError = false,
-                    list = result.list
+                    list = result.list,
+                    isRefreshed = result.isRefreshed
                 )
                 VehiclesResult.LastResult -> prevState.copy()
             }
