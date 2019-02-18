@@ -8,7 +8,7 @@ import android.transition.Visibility
 import android.view.View
 import android.view.ViewGroup
 
-class SlideExplode : Visibility() {
+class ExpandOut : Visibility() {
 
     companion object {
         private const val KEY_SCREEN_BOUNDS = "screenBounds"

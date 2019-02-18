@@ -56,9 +56,10 @@ class VehicleListFragment : Fragment() {
             .subscribe(::render)
         disposable += presenter.processIntents(intentions())
 
+        val layoutManager = LinearLayoutManager(context)
         vehicleList.adapter = adapter
-        vehicleList.layoutManager = LinearLayoutManager(context)
-        // TODO add infinite scroll view
+        vehicleList.layoutManager = layoutManager
+        val loadListener = EndlessScrollListener(layoutManager, {})
     }
 
     private fun intentions(): Observable<VehiclesIntent> {
@@ -90,6 +91,8 @@ class VehicleListFragment : Fragment() {
 
     private fun render(state: VehiclesState) {
         refreshLayout.isRefreshing = state.isLoading
+
+
         if (state.isError) {
             vehicleList.visibility = View.GONE
             errorIcon.visibility = View.VISIBLE
